@@ -1,24 +1,25 @@
 import {View,Text,Image} from "react-native";
 import React from "react";
+import Colors from "./Color";
 
-const Headerautomation = () => {
+const Header = () => {
 
 
 const categories = ["All", "Coffee", "Tea", "Pizza"];
   return (
     <View
     style={{
-      backgroundColor: "#f3f3f3",
-      borderBottomLeftRadius: 30,
-      borderBottomRightRadius: 30,
+      backgroundColor:Colors.Gray,
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius: 50,
       marginTop: 20,
     }}
   >
     <View
       style={{
         marginTop: 20,
-        marginLeft: 30,
-        marginRight: 30,
+        marginLeft: 50,
+        marginRight: 50,
         marginBottom: 10,
       }}
     >
@@ -29,14 +30,14 @@ const categories = ["All", "Coffee", "Tea", "Pizza"];
           style={{
             height: 50,
             width: 50,
-            borderRadius: 50,
+            borderRadius: 100,
             marginBottom: 10,
           }}
           source={require("../assets/sakib.jpg")}
         />
       </View>
 
-      <Text style={{ fontSize: 30, marginBottom: 10,fontWeight:'300' }}>
+      <Text style={{ fontSize: 25, marginBottom:5,fontWeight:'300' }}>
         Good Morning, Sakib!
       </Text>
     </View>
@@ -45,4 +46,4 @@ const categories = ["All", "Coffee", "Tea", "Pizza"];
 }
 
 
-export default Headerautomation
+export default Header
