@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity,Button } from 'react-native'
 import React from 'react'
 import Header from '../components/Header'
 import Colors from '../components/Color'
@@ -32,6 +32,9 @@ const Home = () => {
     <Text style={{marginTop:'40%',fontSize:20,fontWeight:'500',color:Colors.White}}>Call Staff</Text>
 </View>
 
+</View>
+<View style={{alignItems:'center',marginTop:100}}>
+<Button color={Colors.water} title='Confirm'/>
 </View>
 
   </View>
