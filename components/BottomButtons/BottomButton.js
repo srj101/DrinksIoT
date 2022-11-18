@@ -12,6 +12,9 @@ const BottomButton = ({ name, BGcolor, TXTcolor }) => {
         borderWidth: 2,
         borderRadius: 25,
         backgroundColor: BGcolor,
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
       }}
     >
       <Text
