@@ -7,6 +7,8 @@ const Colors = {
   Middark: "#454545",
   Dark: "#000000",
   Gray: "#f3f3f3",
-  text: "#f9f9f9",
+  text: "#ffffff",
+  Pink: "pink",
+  green: "green",
 };
 export default Colors;

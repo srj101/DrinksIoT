@@ -1,196 +1,44 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import Colors from "../Color";
+import Option from "./Option";
 
 const Drink = ({ item }) => {
-  const { name } = item;
+  const { name, options } = item;
+
   return (
     <View
       style={{
-        backgroundColor: Colors.Middark,
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "space-between",
-        alignItems: "center",
-
-        paddingHorizontal: 30,
-        borderBottomColor: Colors.Dark,
-        borderBottomWidth: 2,
+        flexGrow: 1,
+        paddingHorizontal: 15,
       }}
     >
-      <View>
-        <Text style={{ color: Colors.White }}>{name}</Text>
+      <View style={{}}>
+        <Text
+          style={{
+            fontSize: 22,
+            fontWeight: "900",
+            paddingVertical: 20,
+            color: Colors.text,
+            textAlign: "center",
+          }}
+        >
+          {name}
+        </Text>
       </View>
       <View
-        style={{ display: "flex", justifyContent: "center", flexBasis: "50%" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "space-between",
+        }}
       >
-        {/** Button */}
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <Text>Sugar Daddy</Text>
-          </View>
-          <View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  -
-                </Text>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontWeight: "bold",
-                  color: Colors.White,
-                }}
-              >
-                0
-              </Text>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  +
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        {/** Button */}
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <Text>Mild Daddy</Text>
-          </View>
-          <View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  -
-                </Text>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontWeight: "bold",
-                  color: Colors.White,
-                }}
-              >
-                0
-              </Text>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  +
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        {/** Button */}
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <Text>No Sugar Daddy</Text>
-          </View>
-          <View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  -
-                </Text>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontWeight: "bold",
-                  color: Colors.White,
-                }}
-              >
-                0
-              </Text>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 40,
-                    fontWeight: "bold",
-                    color: Colors.White,
-                  }}
-                >
-                  +
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        {options?.map((item) => (
+          <Option item={item} key={item.id} />
+        ))}
       </View>
     </View>
   );

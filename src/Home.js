@@ -1,15 +1,7 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Button,
-  StatusBar,
-  Platform,
-} from "react-native";
+import { View } from "react-native";
 import React from "react";
-import Header from "../components/Header";
 import Drink from "../components/Drink/Drink";
-import { FlashList } from "@shopify/flash-list";
+import RightSideMenu from "../components/Drink/RightSideMenu";
 import Colors from "../components/Color";
 
 const Home = () => {
@@ -17,62 +9,69 @@ const Home = () => {
     {
       id: 1,
       name: "Coffee",
+      options: [
+        {
+          id: 1,
+          name: "With Sugar",
+        },
+        {
+          id: 2,
+          name: "No Sugar",
+        },
+      ],
     },
     {
       id: 2,
       name: "Tea",
+      options: [
+        {
+          id: 1,
+          name: "With Sugar",
+        },
+        {
+          id: 2,
+          name: "No Sugar",
+        },
+      ],
     },
     {
       id: 3,
       name: "Water",
-    },
-    {
-      id: 4,
-      name: "Ring",
+      options: [
+        {
+          id: 1,
+          name: "Litre",
+        },
+      ],
     },
   ];
-
-  const renderItem = ({ item }) => {
-    return <Drink item={item}></Drink>;
-  };
 
   return (
     <View
       style={{
-        height: "100%",
-        width: "100%",
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        display: "flex",
+        marginVertical: 25,
       }}
     >
       <View
         style={{
           display: "flex",
+          flexDirection: "row",
           justifyContent: "space-between",
-          height: "100%",
+
+          backgroundColor: Colors.Pink,
+          borderRadius: 20,
+          marginBottom: 20,
         }}
       >
-        <FlashList
-          data={drinks}
-          numColumns={1}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={true}
-          estimatedItemSize={5}
-        />
+        {drinks.map((item) => (
+          <Drink item={item} key={item.id} />
+        ))}
+      </View>
 
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            backgroundColor: Colors.staff,
-          }}
-        >
-          <Text style={{ paddingVertical: 40 }}>Processing</Text>
-          <TouchableOpacity style={{ paddingVertical: 40 }}>
-            <Text style={{ color: Colors.text }}>Confirm</Text>
-          </TouchableOpacity>
+      <View>
+        <View style={{}}>
+          <RightSideMenu />
         </View>
       </View>
     </View>
