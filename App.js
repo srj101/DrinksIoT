@@ -21,8 +21,6 @@ export default function App() {
     changeScreenOrientation();
   }, []);
 
-  console.log(Device.modelName);
-
   if (orientationIsLandscape === false) {
     return (
       <React.Fragment>
@@ -30,9 +28,8 @@ export default function App() {
           style={{
             flex: 1,
             display: "flex",
-            paddingTop: Device.modelName.includes("android")
-              ? StatusBar.currentHeight
-              : 0,
+            paddingTop:
+              Device.osName == "Android" ? StatusBar.currentHeight : 0,
           }}
         >
           <SafeAreaView>
@@ -49,9 +46,7 @@ export default function App() {
         style={{
           flex: 1,
           display: "flex",
-          paddingTop: Device.modelName.includes("android")
-            ? StatusBar.currentHeight
-            : 0,
+          paddingTop: Device.osName == "Android" ? StatusBar.currentHeight : 0,
         }}
       >
         <SafeAreaView>
