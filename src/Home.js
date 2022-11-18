@@ -1,46 +1,82 @@
-import { View, Text, TouchableOpacity,Button } from 'react-native'
-import React from 'react'
-import Header from '../components/Header'
-import Colors from '../components/Color'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  StatusBar,
+  Platform,
+} from "react-native";
+import React from "react";
+import Header from "../components/Header";
+import Drink from "../components/Drink/Drink";
+import { FlashList } from "@shopify/flash-list";
+import Colors from "../components/Color";
 
 const Home = () => {
+  const drinks = [
+    {
+      id: 1,
+      name: "Coffee",
+    },
+    {
+      id: 2,
+      name: "Tea",
+    },
+    {
+      id: 3,
+      name: "Water",
+    },
+    {
+      id: 4,
+      name: "Ring",
+    },
+  ];
+
+  const renderItem = ({ item }) => {
+    return <Drink item={item}></Drink>;
+  };
+
   return (
-    <View>
-    <View>
-      <Header/>
-      
-      <View style={{flexDirection:'row',justifyContent:'center',marginTop:150}}>
+    <View
+      style={{
+        height: "100%",
+        width: "100%",
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+      }}
+    >
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          height: "100%",
+        }}
+      >
+        <FlashList
+          data={drinks}
+          numColumns={1}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={true}
+          estimatedItemSize={5}
+        />
 
-          <View style={{backgroundColor:Colors.coffe,height:150,width:150,alignItems:'center',marginRight:15,borderRadius:10}}>
-           
-              <Text style={{marginTop:'40%',fontSize:20,fontWeight:'500',color:Colors.White}}>Coffee</Text>
-          </View>
-
-          <View style={{backgroundColor:Colors.tea,height:150,width:150,alignItems:'center',borderRadius:10,marginLeft:15}}>
-              <Text style={{marginTop:'40%',fontSize:20,fontWeight:'500',color:Colors.White}}>Tea</Text>
-          </View>
-          
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            backgroundColor: Colors.staff,
+          }}
+        >
+          <Text style={{ paddingVertical: 40 }}>Processing</Text>
+          <TouchableOpacity style={{ paddingVertical: 40 }}>
+            <Text style={{ color: Colors.text }}>Confirm</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
-
-    <View style={{flexDirection:'row',justifyContent:'center',marginTop:100}}>
-
-<View style={{backgroundColor:Colors.water,height:150,width:150,alignItems:'center',borderRadius:10,marginRight:15}}>
-    <Text style={{marginTop:'40%',fontSize:20,fontWeight:'500',color:Colors.White}}>Water</Text>
-</View>
-
-<View style={{backgroundColor:Colors.staff,height:150,width:150,alignItems:'center',borderRadius:10,marginLeft:15}}>
-    <Text style={{marginTop:'40%',fontSize:20,fontWeight:'500',color:Colors.White}}>Call Staff</Text>
-</View>
-
-</View>
-<View style={{alignItems:'center',marginTop:100}}>
-<Button color={Colors.water} title='Confirm'/>
-</View>
-
-  </View>
-  </View>
-
-  
-  )}
+  );
+};
 
 export default Home;
