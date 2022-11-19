@@ -2,8 +2,9 @@ import { View, Text } from "react-native";
 import React from "react";
 import BottomButton from "../BottomButtons/BottomButton";
 import Colors from "../Color";
+import ProfileInfo from "../Profile/ProfileInfo";
 
-const RightSideMenu = () => {
+const RightSideMenu = ({ navigation }) => {
   return (
     <View
       style={{
@@ -50,11 +51,7 @@ const RightSideMenu = () => {
         </Text>
       </View>
       <BottomButton name="Call" BGcolor={Colors.Pink} TXTcolor={Colors.White} />
-      <BottomButton
-        name="Settings"
-        BGcolor={Colors.Pink}
-        TXTcolor={Colors.White}
-      />
+      <ProfileInfo navigation={navigation} />
     </View>
   );
 };

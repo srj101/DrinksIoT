@@ -9,10 +9,6 @@ const Drink = ({ item }) => {
   return (
     <View
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        flexGrow: 1,
         paddingHorizontal: 15,
       }}
     >
@@ -23,7 +19,6 @@ const Drink = ({ item }) => {
             fontWeight: "900",
             paddingVertical: 20,
             color: Colors.text,
-            textAlign: "center",
           }}
         >
           {name}
@@ -36,8 +31,8 @@ const Drink = ({ item }) => {
           alignContent: "space-between",
         }}
       >
-        {options?.map((item) => (
-          <Option item={item} key={item.id} />
+        {options?.map((itm) => (
+          <Option item={itm} key={itm.id} drink={item} />
         ))}
       </View>
     </View>

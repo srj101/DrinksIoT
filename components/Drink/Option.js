@@ -1,10 +1,12 @@
 import { View, Text } from "react-native";
-import React from "react";
-import CounterInput from "react-native-counter-input";
+import React, { useState } from "react";
 import Colors from "../Color";
-
-const Option = ({ item }) => {
+import NumericInput from "react-native-numeric-input";
+const Option = ({ item, drink }) => {
   const { name } = item;
+  const { name: drinkName } = drink;
+  const [counter, setCounter] = useState(0);
+
   return (
     <View
       style={{
@@ -15,7 +17,7 @@ const Option = ({ item }) => {
         marginBottom: 20,
       }}
     >
-      <View>
+      <View style={{ paddingRight: 15 }}>
         <Text
           style={{
             fontSize: 15,
@@ -28,11 +30,22 @@ const Option = ({ item }) => {
         </Text>
       </View>
       <View style={{ paddingBottom: name === "Litre" ? 40 : 0 }}>
-        <CounterInput
-          horizontal={true}
-          decreaseButtonBackgroundColor={Colors.Pink}
-          increaseButtonBackgroundColor={Colors.Pink}
-          onChange={(counter) => console.log(counter)}
+        <NumericInput
+          value={counter}
+          onChange={setCounter}
+          onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+          totalWidth={130}
+          totalHeight={50}
+          minValue={0}
+          maxValue={30}
+          iconSize={25}
+          step={name === "Litre" ? 0.5 : 1}
+          valueType="real"
+          rounded
+          textColor="#B0228C"
+          iconStyle={{ color: "white" }}
+          rightButtonBackgroundColor={Colors.Middark}
+          leftButtonBackgroundColor={Colors.Middark}
         />
       </View>
     </View>

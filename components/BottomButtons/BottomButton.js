@@ -2,7 +2,7 @@ import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "../Color";
 
-const BottomButton = ({ name, BGcolor, TXTcolor }) => {
+const BottomButton = ({ name, BGcolor, TXTcolor, navigation }) => {
   return (
     <TouchableOpacity
       style={{
@@ -16,6 +16,7 @@ const BottomButton = ({ name, BGcolor, TXTcolor }) => {
         justifyContent: "space-around",
         alignItems: "center",
       }}
+      onClick={() => navigation.navigate("Settings")}
     >
       <Text
         style={{

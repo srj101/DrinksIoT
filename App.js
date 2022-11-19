@@ -1,9 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { LogBox, SafeAreaView, Text, View } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
-import Home from "./src/Home";
+import { store, persistor } from "./src/state/main";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import * as Device from "expo-device";
+import Root from "./src/Navigation/Root";
+import { NavigationContainer } from "@react-navigation/native";
+
+// Just for now
+LogBox.ignoreAllLogs();
 
 export default function App() {
   const [orientationIsLandscape, setOrientation] = useState(false);
@@ -41,18 +48,12 @@ export default function App() {
   }
 
   return (
-    <React.Fragment>
-      <View
-        style={{
-          flex: 1,
-          display: "flex",
-          paddingTop: Device.osName == "Android" ? StatusBar.currentHeight : 0,
-        }}
-      >
-        <SafeAreaView>
-          <Home />
-        </SafeAreaView>
-      </View>
-    </React.Fragment>
+    <NavigationContainer>
+      <Provider store={store}>
+        <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+          <Root />
+        </PersistGate>
+      </Provider>
+    </NavigationContainer>
   );
 }

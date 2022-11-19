@@ -1,10 +1,11 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React from "react";
 import Drink from "../components/Drink/Drink";
-import RightSideMenu from "../components/Drink/RightSideMenu";
+import BottomMenu from "../components/Drink/BottomMenu";
 import Colors from "../components/Color";
+import * as Device from "expo-device";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const drinks = [
     {
       id: 1,
@@ -49,30 +50,41 @@ const Home = () => {
   return (
     <View
       style={{
+        flex: 1,
         display: "flex",
-        marginVertical: 25,
+        paddingTop: Device.osName == "Android" ? StatusBar.currentHeight : 0,
       }}
     >
       <View
         style={{
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-
-          backgroundColor: Colors.Pink,
-          borderRadius: 20,
-          marginBottom: 20,
+          marginVertical: 25,
+          flex: 1,
         }}
       >
-        {drinks.map((item) => (
-          <Drink item={item} key={item.id} />
-        ))}
-      </View>
+        <SafeAreaView>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
 
-      <View>
-        <View style={{}}>
-          <RightSideMenu />
-        </View>
+              backgroundColor: Colors.Pink,
+              borderRadius: 20,
+              marginBottom: 20,
+            }}
+          >
+            {drinks.map((item) => (
+              <Drink item={item} key={item.id} />
+            ))}
+          </View>
+
+          <View>
+            <View style={{}}>
+              <BottomMenu navigation={navigation} />
+            </View>
+          </View>
+        </SafeAreaView>
       </View>
     </View>
   );
