@@ -171,7 +171,7 @@ const Settings = ({ navigation }) => {
                 />
               )}
               <Button
-                color={Colors.text}
+                color={Colors.Dark}
                 title="Choose Photo"
                 onPress={handleChoosePhoto}
               />
@@ -180,13 +180,13 @@ const Settings = ({ navigation }) => {
         </View>
         <View
           style={{
-            backgroundColor: Colors.Middark,
+            backgroundColor: Colors.Dark,
             borderRadius: 20,
             paddingVertical: 15,
           }}
         >
           <Button
-            color={Colors.text}
+            color={Colors.Dark}
             title="Save"
             onPress={handleSubmit(onSubmit)}
           />

@@ -15,17 +15,18 @@ const RightSideMenu = ({ navigation }) => {
     >
       <BottomButton
         name="Confirm"
-        BGcolor={Colors.Pink}
+        BGcolor={Colors.tea}
         TXTcolor={Colors.White}
+        navigation={navigation}
       />
       <View
         style={{
           flex: 1,
           paddingVertical: 40,
-          backgroundColor: Colors.Pink,
-          borderColor: Colors.Gray,
+          backgroundColor: Colors.tea,
+          borderColor: Colors.tea,
           borderWidth: 2,
-          borderRadius: 25,
+          borderRadius: 100,
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
@@ -50,7 +51,7 @@ const RightSideMenu = ({ navigation }) => {
           Processing
         </Text>
       </View>
-      <BottomButton name="Call" BGcolor={Colors.Pink} TXTcolor={Colors.White} />
+      <BottomButton name="Call" BGcolor={Colors.tea} TXTcolor={Colors.White} />
       <ProfileInfo navigation={navigation} />
     </View>
   );

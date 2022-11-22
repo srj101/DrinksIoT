@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, StatusBar, View } from "react-native";
 import React from "react";
 import Drink from "../components/Drink/Drink";
 import BottomMenu from "../components/Drink/BottomMenu";
@@ -58,7 +58,7 @@ const Home = ({ navigation }) => {
       <View
         style={{
           display: "flex",
-          marginVertical: 25,
+          marginHorizontal: 25,
           flex: 1,
         }}
       >
@@ -69,7 +69,7 @@ const Home = ({ navigation }) => {
               flexDirection: "row",
               justifyContent: "space-between",
 
-              backgroundColor: Colors.Pink,
+              backgroundColor: Colors.tea,
               borderRadius: 20,
               marginBottom: 20,
             }}

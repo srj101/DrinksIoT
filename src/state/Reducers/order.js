@@ -1,70 +1,75 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { makeCall, makeOrder } from "../API/order";
 
+const init = {
+  orders: [],
+  loading: false,
+  error: null,
+  call: null,
+  tea: {
+    qty: 0,
+    options: [],
+  },
+  coffee: {
+    qty: 0,
+    options: [],
+  },
+  water: {
+    qty: 0,
+    options: [],
+  },
+};
+
 const orderSlice = createSlice({
   name: "order",
-  initialState: {
-    orders: null,
-    loading: false,
-    error: null,
-    call: null,
-  },
+  initialState: init,
   reducers: {
     addTeaToOrder: (state, action) => {
-      const orders = state.orders;
-      const teaExists = orders.find((order) => order.id === 2);
-      if (teaExists) {
-        const newOrders = orders.map((order) => {
-          if (order.id === 2) {
-            return {
-              ...order,
-              qty: order.qty + 1,
-            };
-          }
-        });
-        state.orders = newOrders;
-      } else {
-        state.orders = [...state.orders, action.payload.tea];
-      }
-      state.orders = [...state.orders, action.payload.tea];
+      state.tea.qty = action.payload.qty;
+      state.tea.options.push(action.payload.option);
     },
     addCoffeeToOrder: (state, action) => {
-      const orders = state.orders;
-      const coffeeExists = orders.find((order) => order.id === 1);
-      if (coffeeExists) {
-        const newOrders = orders.map((order) => {
-          if (order.id === 1) {
-            return {
-              ...order,
-              qty: order.qty + 1,
-            };
-          }
-        });
-        state.orders = newOrders;
-      } else {
-        state.orders = [...state.orders, action.payload.coffee];
-      }
+      const qty = action.payload.qty;
+
+      state.coffee.qty = qty;
+      state.coffee.options.push(action.payload.option);
     },
     addWaterToOrder: (state, action) => {
-      const orders = state.orders;
-      const waterExists = orders.find((order) => order.id === 3);
-      if (waterExists) {
-        const newOrders = orders.map((order) => {
-          if (order.id === 3) {
-            return {
-              ...order,
-              qty: order.qty + 1,
-            };
-          }
-        });
-        state.orders = newOrders;
+      const qty = action.payload.qty;
+
+      state.water.qty = qty;
+      state.water.options.push(action.payload.option);
+    },
+
+    confirmOrder: (state, action) => {
+      if (
+        state.coffee.qty === 0 &&
+        state.tea.qty === 0 &&
+        state.water.qty === 0
+      ) {
+        state.error = "Nothing in the order!";
       } else {
-        state.orders = [...state.orders, action.payload.water];
+        (state.tea = {
+          name: "Tea",
+          qty: state.tea.qty,
+          options: state.tea.options,
+        }),
+          (state.coffee = {
+            name: "Coffee",
+            qty: state.coffee.qty,
+            options: state.coffee.options,
+          });
+        state.water = {
+          name: "Water",
+          qty: state.water.qty,
+          options: state.water.options,
+        };
+        state.orders = [state.tea, state.coffee, state.water];
       }
     },
 
     resetOrder: (state) => {
-      state.orders = null;
+      state = init;
     },
     resetCall: (state) => {
       state.call = null;
@@ -102,6 +107,7 @@ export const {
   addWaterToOrder,
   resetCall,
   resetOrder,
+  confirmOrder,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

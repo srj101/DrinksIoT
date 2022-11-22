@@ -10,5 +10,6 @@ const Colors = {
   text: "#ffffff",
   Pink: "pink",
   green: "green",
+  txt: "#000000",
 };
 export default Colors;
