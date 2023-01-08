@@ -6,17 +6,20 @@ const init = {
   loading: false,
   error: null,
   call: null,
-  tea: {
+  teaNoSugar: {
     qty: 0,
-    options: [],
   },
-  coffee: {
+  teaWithSugar: {
     qty: 0,
-    options: [],
+  },
+  coffeeWithSugar: {
+    qty: 0,
+  },
+  coffeeNoSugar: {
+    qty: 0,
   },
   water: {
     qty: 0,
-    options: [],
   },
 };
 
@@ -24,48 +27,55 @@ const orderSlice = createSlice({
   name: "order",
   initialState: init,
   reducers: {
-    addTeaToOrder: (state, action) => {
-      state.tea.qty = action.payload.qty;
-      state.tea.options.push(action.payload.option);
+    addTeaWithSugarOrder: (state, action) => {
+      if (action.payload.qty > 0) {
+        state.teaWithSugar.qty = action.payload.qty;
+      }
     },
-    addCoffeeToOrder: (state, action) => {
-      const qty = action.payload.qty;
-
-      state.coffee.qty = qty;
-      state.coffee.options.push(action.payload.option);
+    addTeaNoSugarOrder: (state, action) => {
+      if (action.payload.qty > 0) {
+        state.teaNoSugar.qty = action.payload.qty;
+      }
+    },
+    addCoffeeWithSugarToOrder: (state, action) => {
+      if (action.payload.qty > 0) {
+        state.coffeeWithSugar.qty = action.payload.qty;
+      }
+    },
+    addCoffeeNoSugarToOrder: (state, action) => {
+      if (action.payload.qty > 0) {
+        state.coffeeNoSugar.qty = action.payload.qty;
+      }
     },
     addWaterToOrder: (state, action) => {
-      const qty = action.payload.qty;
-
-      state.water.qty = qty;
-      state.water.options.push(action.payload.option);
+      if (action.payload.qty > 0) {
+        state.water.qty = action.payload.qty;
+      }
     },
 
     confirmOrder: (state, action) => {
-      if (
-        state.coffee.qty === 0 &&
-        state.tea.qty === 0 &&
-        state.water.qty === 0
-      ) {
-        state.error = "Nothing in the order!";
-      } else {
-        (state.tea = {
-          name: "Tea",
-          qty: state.tea.qty,
-          options: state.tea.options,
-        }),
-          (state.coffee = {
-            name: "Coffee",
-            qty: state.coffee.qty,
-            options: state.coffee.options,
-          });
-        state.water = {
-          name: "Water",
-          qty: state.water.qty,
-          options: state.water.options,
-        };
-        state.orders = [state.tea, state.coffee, state.water];
-      }
+      state.orders = [
+        {
+          teaWithSugar: state.teaWithSugar.qty,
+          qty: state.teaWithSugar.qty,
+        },
+        {
+          teaNoSugar: state.teaNoSugar.qty,
+          qty: state.teaNoSugar.qty,
+        },
+        {
+          coffeeWithSugar: state.coffeeWithSugar.qty,
+          qty: state.coffeeWithSugar.qty,
+        },
+        {
+          coffeeNoSugar: state.coffeeNoSugar.qty,
+          qty: state.coffeeNoSugar.qty,
+        },
+        {
+          water: state.water.qty,
+        },
+      ];
+      state.orders = state.orders.filter((item) => Object.values(item)[0] > 0);
     },
 
     resetOrder: (state) => {
@@ -102,8 +112,10 @@ const orderSlice = createSlice({
   },
 });
 export const {
-  addCoffeeToOrder,
-  addTeaToOrder,
+  addCoffeeNoSugarToOrder,
+  addCoffeeWithSugarToOrder,
+  addTeaNoSugarOrder,
+  addTeaWithSugarOrder,
   addWaterToOrder,
   resetCall,
   resetOrder,

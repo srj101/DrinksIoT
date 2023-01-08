@@ -8,11 +8,11 @@ import { PersistGate } from "redux-persist/integration/react";
 import * as Device from "expo-device";
 import Root from "./src/Navigation/Root";
 import { NavigationContainer } from "@react-navigation/native";
+import { StateProvder, withStateProvder } from "./src/state/Context/State";
 
 // Just for now
 LogBox.ignoreAllLogs();
-
-export default function App() {
+function App() {
   const [orientationIsLandscape, setOrientation] = useState(false);
 
   async function changeScreenOrientation() {
@@ -48,12 +48,16 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-          <Root />
-        </PersistGate>
-      </Provider>
-    </NavigationContainer>
+    <StateProvder>
+      <NavigationContainer>
+        <Provider store={store}>
+          <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+            <Root />
+          </PersistGate>
+        </Provider>
+      </NavigationContainer>
+    </StateProvder>
   );
 }
+
+export default withStateProvder(App);

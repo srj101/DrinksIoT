@@ -12,12 +12,13 @@ import { useForm, Controller } from "react-hook-form";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import Colors from "../components/Color";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "./state/Reducers/user";
 import uuid from "react-native-uuid";
 
 const Settings = ({ navigation }) => {
-  const [image, setImage] = useState(null);
+  const { user } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,7 +31,7 @@ const Settings = ({ navigation }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setValue("image", result.uri);
     }
   };
 
@@ -42,24 +43,38 @@ const Settings = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      roomNo: null,
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      roomNo: user.roomNo || null,
+      image: user.image || null,
     },
   });
 
   const onSubmit = (data) => {
+    if (
+      data.firstName === "" ||
+      data.lastName === "" ||
+      data.roomNo === "" ||
+      watch("image") === null
+    ) {
+      Alert.alert("Error", "Please fill all the fields", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+      return;
+    }
     dispatch(
       register({
         user: {
           firstName: data.firstName,
           lastName: data.lastName,
           roomNo: data.roomNo,
-          image: image,
+          image: watch("image"),
           department: "CSE",
-          userId: uuid.v4(),
+          userId: 2,
         },
       })
     );
@@ -75,7 +90,7 @@ const Settings = ({ navigation }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: Colors.Dark,
+        backgroundColor: Colors.Gray,
       }}
     >
       <SafeAreaView>
@@ -103,7 +118,7 @@ const Settings = ({ navigation }) => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder="First Name"
+                  placeholder={user.firstName ? user.firstName : "First Name"}
                   placeholderTextColor={Colors.text}
                 />
               )}
@@ -124,7 +139,7 @@ const Settings = ({ navigation }) => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder="Last Name"
+                  placeholder={user.lastName ? user.lastName : "Last Name"}
                   placeholderTextColor={Colors.text}
                 />
               )}
@@ -146,7 +161,7 @@ const Settings = ({ navigation }) => {
                   onChangeText={onChange}
                   value={value}
                   keyboardType="numeric"
-                  placeholder="Room Number"
+                  placeholder={user.roomNo ? user.roomNo : "Room No"}
                   placeholderTextColor={Colors.text}
                 />
               )}
@@ -164,14 +179,14 @@ const Settings = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              {image && (
+              {watch("image") && (
                 <Image
-                  source={{ uri: image }}
+                  source={{ uri: watch("image") }}
                   style={{ width: 100, height: 100, borderRadius: 300 }}
                 />
               )}
               <Button
-                color={Colors.Dark}
+                color={Colors.White}
                 title="Choose Photo"
                 onPress={handleChoosePhoto}
               />
@@ -186,9 +201,22 @@ const Settings = ({ navigation }) => {
           }}
         >
           <Button
-            color={Colors.Dark}
+            color={Colors.White}
             title="Save"
             onPress={handleSubmit(onSubmit)}
+          />
+        </View>
+        <View
+          style={{
+            backgroundColor: Colors.Dark,
+            borderRadius: 20,
+            paddingVertical: 15,
+          }}
+        >
+          <Button
+            color={Colors.White}
+            title="Go Back"
+            onPress={() => navigation.navigate("Home")}
           />
         </View>
       </SafeAreaView>

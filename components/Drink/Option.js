@@ -4,39 +4,39 @@ import Colors from "../Color";
 import NumericInput from "react-native-numeric-input";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addCoffeeToOrder,
-  addTeaToOrder,
+  addCoffeeNoSugarToOrder,
+  addCoffeeWithSugarToOrder,
+  addTeaNoSugarOrder,
+  addTeaWithSugarOrder,
   addWaterToOrder,
 } from "../../src/state/Reducers/order";
 const Option = ({ item, drink }) => {
   const { name, id } = item;
   const { name: drinkName, id: drinkId } = drink;
-  const [counter, setCounter] = useState(0);
+
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.order);
   const { user } = useSelector((state) => state.user);
 
   const handleChange = (value) => {
-    setCounter(value);
+    console.log(value, drinkId, name);
+
     if (drinkId === 1) {
-      dispatch(
-        addCoffeeToOrder({
-          option: name,
-          qty: counter,
-        })
-      );
+      if (name === "With Sugar") {
+        dispatch(addTeaWithSugarOrder({ value }));
+      } else {
+        dispatch(addTeaNoSugarOrder({ value }));
+      }
     } else if (drinkId === 2) {
-      dispatch(
-        addTeaToOrder({
-          option: name,
-          qty: counter,
-        })
-      );
+      if (name === "With Sugar") {
+        dispatch(addCoffeeWithSugarToOrder({ value }));
+      } else {
+        dispatch(addCoffeeNoSugarToOrder({ value }));
+      }
     } else if (drinkId === 3) {
       dispatch(
         addWaterToOrder({
-          option: name,
-          qty: counter,
+          qty: value,
         })
       );
     }
@@ -66,7 +66,6 @@ const Option = ({ item, drink }) => {
       </View>
       <View style={{ paddingBottom: name === "Litre" ? 40 : 0 }}>
         <NumericInput
-          value={counter}
           onChange={handleChange}
           onLimitReached={(isMax, msg) => console.log(isMax, msg)}
           totalWidth={130}

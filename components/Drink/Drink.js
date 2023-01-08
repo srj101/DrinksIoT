@@ -4,7 +4,7 @@ import Colors from "../Color";
 import Option from "./Option";
 
 const Drink = ({ item }) => {
-  const { name, options } = item;
+  const { name, options, id } = item;
 
   return (
     <View
