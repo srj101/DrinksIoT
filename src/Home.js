@@ -44,8 +44,31 @@ const Home = ({ navigation }) => {
   };
 
   const handleCall = async () => {
-    console.log("call");
-    await socket.emit("call", { user });
+    setLoading(true);
+    console.log("call", userId);
+
+    await fetch(`${API_URL}/api/user/makeCall`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        Alert.alert("Call", "Call has been made");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Error", "Something went wrong");
+        setLoading(false);
+      });
   };
 
   const { user } = useSelector((state) => state.user);
@@ -95,12 +118,20 @@ const Home = ({ navigation }) => {
               total: total,
               userId: user.userId,
             }),
-          }).catch((err) => {
-            console.log(err);
-            setLoading(false);
-          });
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("order--->", data);
+              return data;
+            })
+            .catch((err) => {
+              console.log(err);
+              setLoading(false);
+            });
 
-          const order = await o.json();
+          console.log("order--->", o);
+
+          const order = o;
 
           if (teaNoSugar > 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
