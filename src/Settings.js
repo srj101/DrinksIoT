@@ -47,10 +47,11 @@ const Settings = ({ navigation }) => {
     watch,
   } = useForm({
     defaultValues: {
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      roomNo: user.roomNo || null,
-      image: user.image || null,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      roomNo: user?.roomNo || null,
+      image: user?.image || null,
+      userId: user?.userId || 2,
     },
   });
 
@@ -59,7 +60,8 @@ const Settings = ({ navigation }) => {
       data.firstName === "" ||
       data.lastName === "" ||
       data.roomNo === "" ||
-      watch("image") === null
+      watch("image") === null ||
+      data.userId === ""
     ) {
       Alert.alert("Error", "Please fill all the fields", [
         { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -74,7 +76,7 @@ const Settings = ({ navigation }) => {
           roomNo: data.roomNo,
           image: watch("image"),
           department: "CSE",
-          userId: 2,
+          userId: parseInt(data.userId),
         },
       })
     );
@@ -118,7 +120,7 @@ const Settings = ({ navigation }) => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder={user.firstName ? user.firstName : "First Name"}
+                  placeholder={user?.firstName ? user?.firstName : "First Name"}
                   placeholderTextColor={Colors.text}
                 />
               )}
@@ -139,7 +141,7 @@ const Settings = ({ navigation }) => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder={user.lastName ? user.lastName : "Last Name"}
+                  placeholder={user?.lastName ? user?.lastName : "Last Name"}
                   placeholderTextColor={Colors.text}
                 />
               )}
@@ -161,13 +163,34 @@ const Settings = ({ navigation }) => {
                   onChangeText={onChange}
                   value={value}
                   keyboardType="numeric"
-                  placeholder={user.roomNo ? user.roomNo : "Room No"}
+                  placeholder={user?.roomNo ? user?.roomNo : "Room No"}
                   placeholderTextColor={Colors.text}
                 />
               )}
               name="roomNo"
             />
             {errors.roomNo && (
+              <Text style={{ color: Colors.text }}>This is required.</Text>
+            )}
+
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholder={user?.userId ? user?.userId : "User ID"}
+                  placeholderTextColor={Colors.text}
+                />
+              )}
+              name="userId"
+            />
+            {errors.userId && (
               <Text style={{ color: Colors.text }}>This is required.</Text>
             )}
           </View>

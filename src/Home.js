@@ -133,7 +133,7 @@ const Home = ({ navigation }) => {
 
           const order = o;
 
-          if (teaNoSugar > 0) {
+          if (teaNoSugar > 0 && teaNoSugar !== 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
               method: "POST",
               headers: {
@@ -150,7 +150,7 @@ const Home = ({ navigation }) => {
             });
           }
 
-          if (teaSugar > 0) {
+          if (teaSugar > 0 && teaSugar !== 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
               method: "POST",
               headers: {
@@ -167,7 +167,7 @@ const Home = ({ navigation }) => {
             });
           }
 
-          if (coffeeSugar > 0) {
+          if (coffeeSugar > 0 && coffeeSugar !== 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
               method: "POST",
               headers: {
@@ -184,7 +184,7 @@ const Home = ({ navigation }) => {
             });
           }
 
-          if (coffeeNoSugar > 0) {
+          if (coffeeNoSugar > 0 && coffeeNoSugar !== 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
               method: "POST",
               headers: {
@@ -201,7 +201,7 @@ const Home = ({ navigation }) => {
             });
           }
 
-          if (water > 0) {
+          if (water > 0 && water !== 0) {
             await fetch(`${API_URL}/api/order/createOrderItems`, {
               method: "POST",
               headers: {
