@@ -76,6 +76,7 @@ const Home = ({ navigation }) => {
   const { data } = useSWR(userId, (userId) => listOrderss(userId), {
     refreshInterval: 200,
   });
+
   const [teaSugar, setTeaSugar] = React.useState(0);
   const [teaNoSugar, setTeaNoSugar] = React.useState(0);
 
@@ -314,10 +315,10 @@ const Home = ({ navigation }) => {
               <View style={{}}>
                 <Text
                   style={{
-                    fontSize: 22,
+                    fontSize: 25,
                     fontWeight: "900",
                     paddingVertical: 20,
-                    color: Colors.text,
+                    color: Colors.Dark,
                   }}
                 >
                   Tea
@@ -343,9 +344,9 @@ const Home = ({ navigation }) => {
                   <View style={{ paddingRight: 15 }}>
                     <Text
                       style={{
-                        fontSize: 15,
-                        fontWeight: "400",
-                        color: Colors.text,
+                        fontSize: 18,
+                        fontWeight: "900",
+                        color: Colors.Dark,
                         paddingBottom: 0,
                       }}
                     >
@@ -386,9 +387,9 @@ const Home = ({ navigation }) => {
                   <View style={{ paddingRight: 15 }}>
                     <Text
                       style={{
-                        fontSize: 15,
-                        fontWeight: "400",
-                        color: Colors.text,
+                        fontSize: 18,
+                        fontWeight: "900",
+                        color: Colors.Dark,
                         paddingBottom: 0,
                       }}
                     >
@@ -429,10 +430,10 @@ const Home = ({ navigation }) => {
               <View style={{}}>
                 <Text
                   style={{
-                    fontSize: 22,
+                    fontSize: 25,
                     fontWeight: "900",
                     paddingVertical: 20,
-                    color: Colors.text,
+                    color: Colors.Dark,
                   }}
                 >
                   Coffee
@@ -458,9 +459,9 @@ const Home = ({ navigation }) => {
                   <View style={{ paddingRight: 15 }}>
                     <Text
                       style={{
-                        fontSize: 15,
-                        fontWeight: "400",
-                        color: Colors.text,
+                        fontSize: 18,
+                        fontWeight: "900",
+                        color: Colors.Dark,
                         paddingBottom: 0,
                       }}
                     >
@@ -501,9 +502,9 @@ const Home = ({ navigation }) => {
                   <View style={{ paddingRight: 15 }}>
                     <Text
                       style={{
-                        fontSize: 15,
-                        fontWeight: "400",
-                        color: Colors.text,
+                        fontSize: 18,
+                        fontWeight: "900",
+                        color: Colors.Dark,
                         paddingBottom: 0,
                       }}
                     >
@@ -544,10 +545,10 @@ const Home = ({ navigation }) => {
               <View style={{}}>
                 <Text
                   style={{
-                    fontSize: 22,
+                    fontSize: 25,
                     fontWeight: "900",
                     paddingVertical: 20,
-                    color: Colors.text,
+                    color: Colors.Dark,
                   }}
                 >
                   Water
@@ -573,9 +574,9 @@ const Home = ({ navigation }) => {
                   <View style={{ paddingRight: 15 }}>
                     <Text
                       style={{
-                        fontSize: 15,
-                        fontWeight: "400",
-                        color: Colors.text,
+                        fontSize: 18,
+                        fontWeight: "900",
+                        color: Colors.Dark,
                         paddingBottom: 0,
                       }}
                     >
@@ -644,7 +645,23 @@ const Home = ({ navigation }) => {
                     Confirm
                   </Text>
                 </TouchableOpacity>
+              </View>
+              {/** End Confirm Button */}
 
+              {/** Confirm Button */}
+              <View
+                style={{
+                  flex: 1,
+                  paddingVertical: 40,
+                  borderColor: Colors.Gray,
+                  borderWidth: 2,
+                  borderRadius: 100,
+                  backgroundColor: Colors.green,
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
                 <TouchableOpacity onPress={resetPressed}>
                   <Text
                     style={{
@@ -695,7 +712,9 @@ const Home = ({ navigation }) => {
                     color: Colors.White,
                   }}
                 >
-                  {(data && data.status) || "No Orders"}
+                  {data?.orders?.length
+                    ? data?.orders[data?.orders?.length - 1 || 0]?.status
+                    : "No Orders"}
                 </Text>
               </TouchableOpacity>
 
@@ -734,7 +753,13 @@ const Home = ({ navigation }) => {
 
               {/** End Call Button */}
 
-              <ProfileInfo navigation={navigation} />
+              <View
+                style={{
+                  flex: 2,
+                }}
+              >
+                <ProfileInfo navigation={navigation} />
+              </View>
               {/** Bottom menu end */}
             </View>
           </View>

@@ -12,7 +12,7 @@ const ProfileInfo = ({ navigation }) => {
         style={{
           flex: 1,
           paddingVertical: 20,
-          backgroundColor: Colors.tea,
+          backgroundColor: Colors.green,
           borderColor: Colors.text,
           borderWidth: 2,
           borderRadius: 100,
